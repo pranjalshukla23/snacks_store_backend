@@ -93,6 +93,12 @@ This endpoint allows you to add a new product to the store database.
   "price": 5.00
 }
 
+### Get All Products (`/api/products/`)
+
+This endpoint allows you to get all the products from the database.
+
+**Method**: `GET`
+
 ### Add Product To Cart (`/api/add-to-cart/`)
 
 This endpoint allows you to add a new product to the shopping cart and get the updated final price and quantities added in the cart.

@@ -16,6 +16,22 @@ from django.http import JsonResponse
 def home(request):
     return JsonResponse({"message": "Welcome to MyStore API!"})
 
+# /api/products
+@api_view(['GET'])
+def get_all_products(request):
+    try:
+        # Fetch all products from the database
+        products = Product.objects.all()
+        
+        # Serialize the products
+        serializer = ProductSerializer(products, many=True)
+        
+        return Response({"products": serializer.data}, status=status.HTTP_200_OK)
+    
+    except Exception as e:
+        return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+    
 # /api/add_product/
 @api_view(['POST'])
 def add_product(request):
@@ -26,8 +42,6 @@ def add_product(request):
         serializer.save()
         return Response({"message": "product added successfully in database", "product": serializer.data}, status=status.HTTP_201_CREATED)
     return Response(serializer.errors,  status=status.HTTP_400_BAD_REQUEST)
-
-
 
 
 
